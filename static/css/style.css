@@ -250,6 +250,50 @@ body {
     color: #6c757d !important;
 }
 
+/* Fix content visibility for all pages */
+.container ul li, .container ol li {
+    color: #333333 !important;
+}
+
+.container .list-group-item {
+    color: #333333 !important;
+}
+
+/* Ensure recommendations and results content is visible */
+.recommendations-section, .results-section {
+    color: #333333 !important;
+}
+
+.recommendations-section h6, .results-section h6 {
+    color: #333333 !important;
+}
+
+.recommendations-section ul li, .results-section ul li {
+    color: #333333 !important;
+}
+
+/* Force visibility for numbered lists and content */
+section h1, section h2, section h3, section h4, section h5, section h6 {
+    color: #333333 !important;
+}
+
+section p, section span, section div, section li {
+    color: #333333 !important;
+}
+
+/* Specific fixes for assessment results */
+.assessment-results .card-body {
+    background-color: #ffffff !important;
+}
+
+.assessment-results .card-body * {
+    color: #333333 !important;
+}
+
+.assessment-results .text-muted {
+    color: #6c757d !important;
+}
+
 /* Footer styling */
 footer {
     margin-top: auto;
