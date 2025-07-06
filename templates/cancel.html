@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Cancelled - Privacy Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Cancel Header -->
+            <div class="text-center mb-5">
+                <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px;">
+                    <i class="fas fa-times fa-3x"></i>
+                </div>
+                <h1 class="fw-bold text-warning mb-3">Payment Cancelled</h1>
+                <p class="lead text-muted">
+                    Your payment was cancelled and no charges were made to your account.
+                </p>
+            </div>
+
+            <!-- Booking Information -->
+            {% if booking %}
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Booking Information
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted">Service</h6>
+                            <p class="mb-3">{{ booking.service.name }}</p>
+                            
+                            <h6 class="fw-bold text-muted">Price</h6>
+                            <p class="mb-3">{{ booking.service.currency }} {{ booking.service.price }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted">Booking ID</h6>
+                            <p class="mb-3 font-monospace">#{{ booking.id }}</p>
+                            
+                            <h6 class="fw-bold text-muted">Status</h6>
+                            <span class="badge bg-secondary">{{ booking.status.title() }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Your booking is still saved. You can complete the payment anytime by clicking the button below.
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Reasons for Cancellation -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-question-circle me-2"></i>Common Reasons for Payment Issues
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-credit-card text-primary me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="fw-bold">Payment Method Issues</h6>
+                                    <p class="text-muted small mb-0">Insufficient funds, expired card, or payment declined by bank</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-wifi text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="fw-bold">Connection Problems</h6>
+                                    <p class="text-muted small mb-0">Internet connection issues during payment processing</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-shield-alt text-info me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="fw-bold">Security Verification</h6>
+                                    <p class="text-muted small mb-0">Additional verification required by your bank or card issuer</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-user text-warning me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="fw-bold">Changed Mind</h6>
+                                    <p class="text-muted small mb-0">Decided to review the service details or book later</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What to Do Next -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-route me-2"></i>What Would You Like to Do?
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        {% if booking %}
+                        <div class="col-md-6">
+                            <div class="text-center p-3">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-redo"></i>
+                                </div>
+                                <h6 class="fw-bold">Try Payment Again</h6>
+                                <p class="text-muted small mb-3">Complete your booking with a different payment method</p>
+                                <a href="{{ url_for('create_checkout_session', booking_id=booking.id) }}" class="btn btn-success">
+                                    <i class="fas fa-credit-card me-2"></i>Pay Now
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="col-md-6">
+                            <div class="text-center p-3">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                                <h6 class="fw-bold">Modify Booking</h6>
+                                <p class="text-muted small mb-3">Review or change your service selection</p>
+                                <a href="{{ url_for('services') }}" class="btn btn-primary">
+                                    <i class="fas fa-cogs me-2"></i>View Services
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="text-center p-3">
+                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-question"></i>
+                                </div>
+                                <h6 class="fw-bold">Need Help?</h6>
+                                <p class="text-muted small mb-3">Contact our support team for assistance</p>
+                                <a href="mailto:support@privacyguard.com" class="btn btn-info">
+                                    <i class="fas fa-envelope me-2"></i>Contact Support
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="text-center p-3">
+                                <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h6 class="fw-bold">Continue Browsing</h6>
+                                <p class="text-muted small mb-3">Explore our free privacy assessment</p>
+                                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Information -->
+            <div class="alert alert-light border" role="alert">
+                <h6 class="fw-bold">
+                    <i class="fas fa-headset me-2"></i>Need Assistance?
+                </h6>
+                <p class="mb-2">
+                    If you're experiencing payment issues or have questions about our services, 
+                    we're here to help:
+                </p>
+                <ul class="mb-0">
+                    <li>Email us at <a href="mailto:support@privacyguard.com" class="text-decoration-none">support@privacyguard.com</a></li>
+                    <li>Include your booking ID (#{{ booking.id if booking else 'N/A' }}) in your message</li>
+                    <li>We typically respond within 2-4 hours during business hours</li>
+                </ul>
+            </div>
+
+            <!-- Free Alternative -->
+            <div class="card border-0 shadow-sm bg-light">
+                <div class="card-body text-center p-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-gift me-2 text-success"></i>
+                        Don't Want to Wait? Try Our Free Services
+                    </h5>
+                    <p class="text-muted mb-4">
+                        While you decide on premium services, take advantage of our free privacy assessment 
+                        to get immediate insights into your data protection posture.
+                    </p>
+                    <div class="d-grid d-md-flex gap-3 justify-content-center">
+                        <a href="{{ url_for('assessment') }}" class="btn btn-success btn-lg">
+                            <i class="fas fa-clipboard-check me-2"></i>Free Assessment
+                        </a>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Auto-scroll to top on page load
+window.scrollTo(0, 0);
+
+// Track cancellation for analytics (if needed)
+document.addEventListener('DOMContentLoaded', function() {
+    // You can add analytics tracking here
+    console.log('Payment cancelled for booking:', '{{ booking.id if booking else "N/A" }}');
+});
+</script>
+{% endblock %}

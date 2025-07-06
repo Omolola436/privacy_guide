@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Successful - Privacy Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Success Header -->
+            <div class="text-center mb-5">
+                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px;">
+                    <i class="fas fa-check fa-3x"></i>
+                </div>
+                <h1 class="fw-bold text-success mb-3">Payment Successful!</h1>
+                <p class="lead text-muted">
+                    Thank you for your purchase. Your booking has been confirmed and we'll be in touch shortly.
+                </p>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-receipt me-2"></i>Booking Confirmation
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted">Service</h6>
+                            <p class="mb-3">{{ booking.service.name }}</p>
+                            
+                            <h6 class="fw-bold text-muted">Price</h6>
+                            <p class="mb-3">{{ booking.service.currency }} {{ booking.service.price }}</p>
+                            
+                            <h6 class="fw-bold text-muted">Booking ID</h6>
+                            <p class="mb-3 font-monospace">#{{ booking.id }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted">Customer</h6>
+                            <p class="mb-3">{{ booking.user.first_name }} {{ booking.user.last_name }}</p>
+                            
+                            <h6 class="fw-bold text-muted">Email</h6>
+                            <p class="mb-3">{{ booking.user.email }}</p>
+                            
+                            <h6 class="fw-bold text-muted">Status</h6>
+                            <span class="badge bg-success">{{ booking.status.title() }}</span>
+                        </div>
+                    </div>
+                    
+                    {% if booking.notes %}
+                    <div class="mt-3">
+                        <h6 class="fw-bold text-muted">Your Notes</h6>
+                        <p class="mb-0">{{ booking.notes }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-route me-2"></i>What Happens Next?
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if booking.service.service_type in ['consultation', 'training'] %}
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <span class="fw-bold">1</span>
+                                </div>
+                                <h6 class="fw-bold">Confirmation Email</h6>
+                                <p class="text-muted small">You'll receive a confirmation email within 15 minutes</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <span class="fw-bold">2</span>
+                                </div>
+                                <h6 class="fw-bold">Schedule Confirmation</h6>
+                                <p class="text-muted small">We'll contact you within 24 hours to confirm your session time</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <span class="fw-bold">3</span>
+                                </div>
+                                <h6 class="fw-bold">Session Details</h6>
+                                <p class="text-muted small">You'll receive meeting link and preparation materials</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <span class="fw-bold">1</span>
+                                </div>
+                                <h6 class="fw-bold">Confirmation Email</h6>
+                                <p class="text-muted small">You'll receive a confirmation email within 15 minutes</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                    <span class="fw-bold">2</span>
+                                </div>
+                                <h6 class="fw-bold">Download Access</h6>
+                                <p class="text-muted small">Download links will be provided in the confirmation email</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Important Information -->
+            <div class="alert alert-info" role="alert">
+                <h6 class="fw-bold">
+                    <i class="fas fa-info-circle me-2"></i>Important Information
+                </h6>
+                <ul class="mb-0">
+                    <li>Please check your email (including spam folder) for confirmation details</li>
+                    <li>Save your booking ID (#{{ booking.id }}) for future reference</li>
+                    {% if booking.service.service_type in ['consultation', 'training'] %}
+                    <li>If you need to reschedule, please contact us at least 24 hours in advance</li>
+                    {% endif %}
+                    <li>For any questions, contact us at info@privacyguard.com</li>
+                </ul>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="text-center">
+                <div class="d-grid d-md-flex gap-3 justify-content-center">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                    </a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-plus me-2"></i>Book Another Service
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Tips -->
+<section class="bg-light py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h4 class="fw-bold mb-4">While You Wait...</h4>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <i class="fas fa-clipboard-check text-primary fa-2x mb-3"></i>
+                            <h6 class="fw-bold">Take Assessment</h6>
+                            <p class="text-muted small">If you haven't already, complete your free privacy assessment</p>
+                            <a href="{{ url_for('assessment') }}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-arrow-right me-1"></i>Assess Now
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <i class="fas fa-book text-success fa-2x mb-3"></i>
+                            <h6 class="fw-bold">Privacy Resources</h6>
+                            <p class="text-muted small">Learn about data protection laws in your country</p>
+                            <a href="#" class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Learn More
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <i class="fas fa-users text-info fa-2x mb-3"></i>
+                            <h6 class="fw-bold">Follow Us</h6>
+                            <p class="text-muted small">Stay updated with privacy news and tips</p>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="#" class="btn btn-outline-info btn-sm">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-info btn-sm">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Auto-scroll to top on page load
+window.scrollTo(0, 0);
+
+// Show success animation
+document.addEventListener('DOMContentLoaded', function() {
+    const successIcon = document.querySelector('.fa-check');
+    if (successIcon) {
+        successIcon.style.transform = 'scale(0)';
+        setTimeout(() => {
+            successIcon.style.transition = 'transform 0.5s ease-in-out';
+            successIcon.style.transform = 'scale(1)';
+        }, 300);
+    }
+});
+</script>
+{% endblock %}

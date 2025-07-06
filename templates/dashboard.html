@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Privacy Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="fw-bold">
+                <i class="fas fa-shield-alt me-2 text-success"></i>
+                Welcome, {{ current_user.first_name or current_user.username }}!
+            </h1>
+            <p class="text-muted">Access your free privacy tools and explore premium services.</p>
+        </div>
+    </div>
+
+    <!-- Ready to Strengthen Section -->
+    <div class="row mb-5">
+        <div class="col">
+            <div class="bg-primary text-white rounded p-4 mb-4">
+                <h2 class="fw-bold mb-3">
+                    <i class="fas fa-shield-alt me-2"></i>Ready to Strengthen Your Privacy?
+                </h2>
+                <p class="mb-0">Take control of your data protection with our comprehensive assessment and expert guidance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="row mb-5">
+        <div class="col">
+            <h2 class="fw-bold text-center mb-4">
+                <i class="fas fa-cogs me-2 text-primary"></i>How It Works
+            </h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="text-center p-3">
+                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <span class="fw-bold fs-4">1</span>
+                        </div>
+                        <h5 class="fw-bold">Take Assessment</h5>
+                        <p class="text-muted">Answer questions about your data handling practices</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-3">
+                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <span class="fw-bold fs-4">2</span>
+                        </div>
+                        <h5 class="fw-bold">Get Score & Risk Analysis</h5>
+                        <p class="text-muted">Receive instant privacy posture and risk evaluation</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-3">
+                        <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <span class="fw-bold fs-4">3</span>
+                        </div>
+                        <h5 class="fw-bold">Get Recommendations</h5>
+                        <p class="text-muted">Receive tailored guidance for your country</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-3">
+                        <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <span class="fw-bold fs-4">4</span>
+                        </div>
+                        <h5 class="fw-bold">Take Action</h5>
+                        <p class="text-muted">Implement improvements with expert support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row g-4 mb-5">
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-clipboard-check fa-lg"></i>
+                    </div>
+                    <h5 class="fw-bold">Privacy Assessment</h5>
+                    {% if assessment %}
+                        <p class="text-success mb-2">
+                            <i class="fas fa-check-circle me-1"></i>Completed
+                        </p>
+                        <p class="text-muted small mb-3">Last taken: {{ assessment.completed_at.strftime('%B %d, %Y') }}</p>
+                        <a href="{{ url_for('results', assessment_id=assessment.id) }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-eye me-1"></i>View Results
+                        </a>
+                    {% else %}
+                        <p class="text-warning mb-2">
+                            <i class="fas fa-exclamation-triangle me-1"></i>Not Started
+                        </p>
+                        <p class="text-muted small mb-3">Get your privacy posture score</p>
+                        <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-play me-1"></i>Start Assessment
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-shield-alt fa-lg"></i>
+                    </div>
+                    <h5 class="fw-bold">Risk Level</h5>
+                    {% if assessment %}
+                        {% set risk_color = 'success' if assessment.risk_level == 'Low' else 'warning' if assessment.risk_level == 'Medium' else 'danger' %}
+                        <p class="text-{{ risk_color }} mb-2">
+                            <i class="fas fa-circle me-1"></i>{{ assessment.risk_level }} Risk
+                        </p>
+                        <p class="text-muted small mb-3">Score: {{ assessment.score }}%</p>
+                        <a href="{{ url_for('assessment') }}" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-redo me-1"></i>Retake
+                        </a>
+                    {% else %}
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-question-circle me-1"></i>Unknown
+                        </p>
+                        <p class="text-muted small mb-3">Complete assessment first</p>
+                        <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-play me-1"></i>Assess Now
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-globe-africa fa-lg"></i>
+                    </div>
+                    <h5 class="fw-bold">Your Region</h5>
+                    <p class="text-info mb-2">
+                        <i class="fas fa-map-marker-alt me-1"></i>
+                        {% if current_user.country == 'NG' %}Nigeria
+                        {% elif current_user.country == 'KE' %}Kenya
+                        {% elif current_user.country == 'GH' %}Ghana
+                        {% elif current_user.country == 'ZA' %}South Africa
+                        {% elif current_user.country == 'ZW' %}Zimbabwe
+                        {% elif current_user.country == 'ZM' %}Zambia
+                        {% elif current_user.country == 'BW' %}Botswana
+                        {% else %}{{ current_user.country or 'Not specified' }}
+                        {% endif %}
+                    </p>
+                    <p class="text-muted small mb-3">Local compliance guidance available</p>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-info btn-sm">
+                        <i class="fas fa-info-circle me-1"></i>Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-cogs fa-lg"></i>
+                    </div>
+                    <h5 class="fw-bold">Premium Services</h5>
+                    <p class="text-warning mb-2">
+                        <i class="fas fa-star me-1"></i>Available
+                    </p>
+                    <p class="text-muted small mb-3">Professional privacy support</p>
+                    <a href="{{ url_for('services') }}" class="btn btn-warning btn-sm text-white">
+                        <i class="fas fa-external-link-alt me-1"></i>View Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assessment Results (if available) -->
+    {% if assessment %}
+    <div class="row mb-5">
+        <div class="col">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i>Your Latest Assessment Results
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="fw-bold">Privacy Posture Score: {{ assessment.score }}%</h5>
+                            <p class="text-muted mb-3">Risk Level: 
+                                <span class="badge bg-{% if assessment.risk_level == 'Low' %}success{% elif assessment.risk_level == 'Medium' %}warning{% else %}danger{% endif %} ms-1">
+                                    {{ assessment.risk_level }}
+                                </span>
+                            </p>
+                            
+                            <!-- Progress Bar -->
+                            <div class="mb-3">
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-{% if assessment.score >= 80 %}success{% elif assessment.score >= 60 %}warning{% else %}danger{% endif %}" 
+                                         role="progressbar" 
+                                         style="width: {{ assessment.score }}%">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-muted small">
+                                <i class="fas fa-calendar me-1"></i>
+                                Completed on {{ assessment.completed_at.strftime('%B %d, %Y at %I:%M %p') }}
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="d-grid gap-2">
+                                <a href="{{ url_for('results', assessment_id=assessment.id) }}" class="btn btn-primary">
+                                    <i class="fas fa-eye me-2"></i>View Full Results
+                                </a>
+                                <a href="{{ url_for('assessment') }}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-redo me-2"></i>Retake Assessment
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Premium Services Call-to-Action -->
+    <div class="row mb-5">
+        <div class="col">
+            <div class="card border-0 shadow-lg bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="card-body text-white text-center p-5">
+                    <h2 class="fw-bold mb-3">
+                        <i class="fas fa-star me-2"></i>Ready for Expert Privacy Support?
+                    </h2>
+                    <p class="lead mb-4">
+                        Take your privacy protection to the next level with our professional services - 
+                        consultations, training, and compliance support tailored for African businesses.
+                    </p>
+                    <a href="{{ url_for('services') }}" class="btn btn-light btn-lg">
+                        <i class="fas fa-arrow-right me-2"></i>View Premium Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-5">
+        <div class="col">
+            <h3 class="fw-bold mb-4">
+                <i class="fas fa-bolt me-2 text-warning"></i>Quick Actions
+            </h3>
+            <div class="row g-4">
+                {% if not assessment %}
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="fw-bold text-primary">
+                                <i class="fas fa-clipboard-check me-2"></i>Take Privacy Assessment
+                            </h5>
+                            <p class="text-muted">Get your personalized privacy posture score and recommendations tailored to your country's regulations.</p>
+                            <a href="{{ url_for('assessment') }}" class="btn btn-primary">
+                                <i class="fas fa-play me-2"></i>Start Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="fw-bold text-success">
+                                <i class="fas fa-calendar-alt me-2"></i>Book Expert Consultation
+                            </h5>
+                            <p class="text-muted">Schedule a one-on-one session with our privacy experts for personalized guidance.</p>
+                            <a href="{{ url_for('services') }}" class="btn btn-success">
+                                <i class="fas fa-external-link-alt me-2"></i>Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="fw-bold text-info">
+                                <i class="fas fa-file-download me-2"></i>Download Templates
+                            </h5>
+                            <p class="text-muted">Access ready-to-use privacy policy templates customized for your jurisdiction.</p>
+                            <a href="{{ url_for('services') }}" class="btn btn-info">
+                                <i class="fas fa-download me-2"></i>Get Templates
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="fw-bold text-warning">
+                                <i class="fas fa-graduation-cap me-2"></i>Staff Training
+                            </h5>
+                            <p class="text-muted">Enroll your team in privacy awareness training programs designed for African businesses.</p>
+                            <a href="{{ url_for('services') }}" class="btn btn-warning">
+                                <i class="fas fa-users me-2"></i>Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity / Tips -->
+    <div class="row">
+        <div class="col">
+            <h3 class="fw-bold mb-4">
+                <i class="fas fa-lightbulb me-2 text-warning"></i>Privacy Tips for Your Region
+            </h3>
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    {% if current_user.country == 'NG' %}
+                        <h6 class="fw-bold text-primary">Nigeria Data Protection Act (NDPA)</h6>
+                        <ul class="text-muted">
+                            <li>Ensure you have a privacy policy accessible to data subjects</li>
+                            <li>Implement appropriate security measures for personal data</li>
+                            <li>Register with NITDA if you process data of 1,000+ Nigerian data subjects</li>
+                            <li>Obtain consent before processing personal data</li>
+                        </ul>
+                    {% elif current_user.country == 'KE' %}
+                        <h6 class="fw-bold text-primary">Kenya Data Protection Act 2019</h6>
+                        <ul class="text-muted">
+                            <li>Register with the Data Protection Commissioner if required</li>
+                            <li>Implement data protection by design and by default</li>
+                            <li>Conduct data protection impact assessments for high-risk processing</li>
+                            <li>Ensure lawful basis for processing personal data</li>
+                        </ul>
+                    {% elif current_user.country == 'ZA' %}
+                        <h6 class="fw-bold text-primary">Protection of Personal Information Act (POPIA)</h6>
+                        <ul class="text-muted">
+                            <li>Register with the Information Regulator if you process special personal information</li>
+                            <li>Ensure processing is done for a lawful purpose</li>
+                            <li>Implement appropriate security safeguards</li>
+                            <li>Respect data subject rights including access and deletion</li>
+                        </ul>
+                    {% else %}
+                        <h6 class="fw-bold text-primary">General Privacy Best Practices</h6>
+                        <ul class="text-muted">
+                            <li>Implement strong data security measures</li>
+                            <li>Be transparent about how you collect and use personal data</li>
+                            <li>Obtain proper consent for data processing</li>
+                            <li>Regularly review and update your privacy practices</li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

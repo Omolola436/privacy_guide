@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Assessment - Privacy Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="fw-bold">
+                <i class="fas fa-clipboard-check me-2 text-primary"></i>
+                Privacy Posture Assessment
+            </h1>
+            <p class="lead text-muted">
+                Evaluate your organization's data protection practices and get personalized recommendations 
+                based on your country's privacy regulations.
+            </p>
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                This assessment takes approximately <strong>10-15 minutes</strong> to complete.
+                Your responses will be used to generate a privacy score and tailored recommendations.
+            </div>
+        </div>
+    </div>
+
+    <!-- Assessment Form -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <form method="POST" id="assessmentForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                
+                {% for category, category_questions in questions.items() %}
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-{% if category == 'Data Collection' %}database{% elif category == 'Data Security' %}shield-alt{% elif category == 'Data Rights' %}user-shield{% else %}graduation-cap{% endif %} me-2"></i>
+                            {{ category }}
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        {% for question in category_questions %}
+                        <div class="mb-4 pb-3 border-bottom">
+                            <h6 class="fw-bold mb-3">
+                                {{ loop.index }}. {{ question.question_text }}
+                                {% if question.weight > 2 %}
+                                    <span class="badge bg-warning text-dark ms-2">High Priority</span>
+                                {% endif %}
+                            </h6>
+                            
+                            {% if question.question_type == 'yes_no' %}
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="question_{{ question.id }}" id="q{{ question.id }}_yes" value="Yes" required>
+                                            <label class="form-check-label" for="q{{ question.id }}_yes">
+                                                <i class="fas fa-check text-success me-1"></i>Yes
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="question_{{ question.id }}" id="q{{ question.id }}_no" value="No" required>
+                                            <label class="form-check-label" for="q{{ question.id }}_no">
+                                                <i class="fas fa-times text-danger me-1"></i>No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            {% elif question.question_type == 'multiple_choice' %}
+                                {% set options = question.options|from_json %}
+                                {% for option in options %}
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="question_{{ question.id }}" id="q{{ question.id }}_{{ loop.index }}" value="{{ option }}" required>
+                                    <label class="form-check-label" for="q{{ question.id }}_{{ loop.index }}">
+                                        {{ option }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Submit Button -->
+                <div class="text-center mb-4">
+                    <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
+                        <i class="fas fa-calculator me-2"></i>Calculate My Privacy & Risk Assessment Score
+                    </button>
+                    <p class="text-muted small mt-2">
+                        <i class="fas fa-lock me-1"></i>
+                        Your responses are confidential and used only to generate your assessment results.
+                    </p>
+                </div>
+
+                <!-- Progress Information -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-chart-line me-2 text-success"></i>
+                            What Happens Next?
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="p-3">
+                                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                                        <span class="fw-bold">1</span>
+                                    </div>
+                                    <h6 class="fw-bold">Privacy & Risk Analysis</h6>
+                                    <p class="text-muted small mb-0">Get comprehensive privacy posture and risk level assessment</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3">
+                                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                                        <span class="fw-bold">2</span>
+                                    </div>
+                                    <h6 class="fw-bold">Gap Identification</h6>
+                                    <p class="text-muted small mb-0">Identify compliance gaps and vulnerabilities</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3">
+                                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                                        <span class="fw-bold">3</span>
+                                    </div>
+                                    <h6 class="fw-bold">Recommendations</h6>
+                                    <p class="text-muted small mb-0">Get personalized improvement suggestions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Assessment Tips -->
+<section class="bg-light py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="fw-bold mb-4">Assessment Tips</h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <i class="fas fa-lightbulb text-warning fa-2x mb-3"></i>
+                            <h6 class="fw-bold">Be Honest</h6>
+                            <p class="text-muted small">Accurate responses lead to better recommendations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <i class="fas fa-clock text-info fa-2x mb-3"></i>
+                            <h6 class="fw-bold">Take Your Time</h6>
+                            <p class="text-muted small">Consider each question carefully</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <i class="fas fa-redo text-success fa-2x mb-3"></i>
+                            <h6 class="fw-bold">Retake Anytime</h6>
+                            <p class="text-muted small">Update your assessment as you improve</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('assessmentForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    form.addEventListener('submit', function(e) {
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+        submitBtn.disabled = true;
+        
+        // Check if all required questions are answered
+        const requiredInputs = form.querySelectorAll('input[required]');
+        const answeredQuestions = new Set();
+        
+        requiredInputs.forEach(input => {
+            if (input.checked) {
+                // Extract question ID from input name
+                const questionId = input.name.replace('question_', '');
+                answeredQuestions.add(questionId);
+            }
+        });
+        
+        // Get unique question IDs
+        const allQuestionIds = new Set();
+        requiredInputs.forEach(input => {
+            const questionId = input.name.replace('question_', '');
+            allQuestionIds.add(questionId);
+        });
+        
+        if (answeredQuestions.size < allQuestionIds.size) {
+            e.preventDefault();
+            submitBtn.innerHTML = '<i class="fas fa-calculator me-2"></i>Calculate My Privacy Score';
+            submitBtn.disabled = false;
+            
+            alert('Please answer all questions before submitting.');
+            return false;
+        }
+    });
+    
+    // Add progress tracking
+    const radioInputs = form.querySelectorAll('input[type="radio"]');
+    radioInputs.forEach(input => {
+        input.addEventListener('change', updateProgress);
+    });
+    
+    function updateProgress() {
+        const totalQuestions = new Set();
+        const answeredQuestions = new Set();
+        
+        radioInputs.forEach(input => {
+            const questionId = input.name.replace('question_', '');
+            totalQuestions.add(questionId);
+            
+            if (input.checked) {
+                answeredQuestions.add(questionId);
+            }
+        });
+        
+        const progress = (answeredQuestions.size / totalQuestions.size) * 100;
+        
+        // Update submit button based on progress
+        if (progress === 100) {
+            submitBtn.classList.remove('btn-primary');
+            submitBtn.classList.add('btn-success');
+            submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Calculate My Privacy Score - Ready!';
+        } else {
+            submitBtn.classList.remove('btn-success');
+            submitBtn.classList.add('btn-primary');
+            submitBtn.innerHTML = `<i class="fas fa-calculator me-2"></i>Calculate My Privacy Score (${Math.round(progress)}% complete)`;
+        }
+    }
+    
+    // Initial progress check
+    updateProgress();
+});
+</script>
+{% endblock %}

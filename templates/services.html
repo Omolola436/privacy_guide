@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block title %}Premium Services - Privacy Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-5 fw-bold mb-4">Premium Privacy Services</h1>
+                <p class="lead mb-4">
+                    Professional privacy services with expert consultations, training, and compliance support. 
+                    Each service includes personalized guidance for African regulatory requirements.
+                </p>
+                <div class="alert alert-light d-inline-block">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Note:</strong> These are paid services. Click "Book Now" to schedule and pay for any service.
+                </div>
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Get Started Today
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="py-5">
+    <div class="container">
+        {% if services %}
+            <div class="row g-4">
+                {% for service in services %}
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start mb-3">
+                                <div class="bg-{% if service.service_type == 'assessment' %}danger{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% elif service.service_type == 'consultation' %}warning{% else %}primary{% endif %} text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; flex-shrink: 0;">
+                                    <i class="fas fa-{% if service.service_type == 'assessment' %}search{% elif service.service_type == 'template' %}file-contract{% elif service.service_type == 'training' %}graduation-cap{% elif service.service_type == 'consultation' %}user-tie{% else %}shield-alt{% endif %}"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h4 class="fw-bold mb-2">{{ service.name }}</h4>
+                                    <span class="badge bg-{% if service.service_type == 'assessment' %}danger{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% elif service.service_type == 'consultation' %}warning{% else %}primary{% endif %} mb-2">
+                                        {{ service.service_type.title() }}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-muted mb-4">{{ service.description }}</p>
+                            
+                            <div class="mb-4">
+                                <span class="badge bg-{% if service.service_type == 'assessment' %}danger{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% elif service.service_type == 'consultation' %}warning{% else %}primary{% endif %} mb-2">
+                                    🔒 Premium Service
+                                </span>
+                            </div>
+                            
+                            <!-- Service Features -->
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-2">What's Included:</h6>
+                                <ul class="list-unstyled">
+                                    {% if service.service_type == 'assessment' and 'Risk' in service.name %}
+                                        <li class="mb-1"><i class="fas fa-video text-success me-2"></i>Live Zoom consultation session</li>
+                                        <li class="mb-1"><i class="fas fa-file-alt text-success me-2"></i>Comprehensive written report</li>
+                                        <li class="mb-1"><i class="fas fa-chart-line text-success me-2"></i>Risk analysis and scoring</li>
+                                        <li class="mb-1"><i class="fas fa-lightbulb text-success me-2"></i>Actionable recommendations</li>
+                                    {% elif service.service_type == 'assessment' and 'Vendor' in service.name %}
+                                        <li class="mb-1"><i class="fas fa-clipboard-list text-success me-2"></i>Structured assessment forms</li>
+                                        <li class="mb-1"><i class="fas fa-check-double text-success me-2"></i>Comprehensive checklists</li>
+                                        <li class="mb-1"><i class="fas fa-file-alt text-success me-2"></i>Detailed evaluation report</li>
+                                        <li class="mb-1"><i class="fas fa-shield-alt text-success me-2"></i>Third-party compliance verification</li>
+                                    {% elif service.service_type == 'template' %}
+                                        <li class="mb-1"><i class="fas fa-file-pdf text-success me-2"></i>PDF format templates</li>
+                                        <li class="mb-1"><i class="fas fa-file-word text-success me-2"></i>Editable Word documents</li>
+                                        <li class="mb-1"><i class="fas fa-globe-africa text-success me-2"></i>Country-specific versions</li>
+                                        <li class="mb-1"><i class="fas fa-cog text-success me-2"></i>Customization guidance</li>
+                                    {% elif service.service_type == 'training' %}
+                                        <li class="mb-1"><i class="fas fa-users text-success me-2"></i>Live training sessions</li>
+                                        <li class="mb-1"><i class="fas fa-play text-success me-2"></i>On-demand access</li>
+                                        <li class="mb-1"><i class="fas fa-certificate text-success me-2"></i>Training materials</li>
+                                        <li class="mb-1"><i class="fas fa-globe-africa text-success me-2"></i>African regulatory focus</li>
+                                    {% elif service.service_type == 'consultation' %}
+                                        <li class="mb-1"><i class="fas fa-clipboard text-success me-2"></i>Initial inquiry form</li>
+                                        <li class="mb-1"><i class="fas fa-user-tie text-success me-2"></i>DPO service discussion</li>
+                                        <li class="mb-1"><i class="fas fa-handshake text-success me-2"></i>Ongoing support options</li>
+                                        <li class="mb-1"><i class="fas fa-phone text-success me-2"></i>Follow-up consultation</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            
+                            <div class="d-grid">
+                                {% if current_user.is_authenticated %}
+                                    <a href="{{ url_for('booking', service_id=service.id) }}" 
+                                       class="btn btn-{% if service.service_type == 'assessment' %}danger{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% elif service.service_type == 'consultation' %}warning{% else %}primary{% endif %} btn-lg">
+                                        <i class="fas fa-calendar-plus me-2"></i>Book Session
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('login', next=url_for('booking', service_id=service.id)) }}" 
+                                       class="btn btn-{% if service.service_type == 'assessment' %}danger{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% elif service.service_type == 'consultation' %}warning{% else %}primary{% endif %} btn-lg">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Login to Book Session
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="py-5">
+                        <i class="fas fa-cogs fa-4x text-muted mb-4"></i>
+                        <h3 class="fw-bold mb-3">Services Coming Soon</h3>
+                        <p class="text-muted mb-4">
+                            We're preparing our premium privacy services. Check back soon for expert consultations, 
+                            policy templates, and training programs.
+                        </p>
+                        <a href="{{ url_for('index') }}" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Why Choose Our Services -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">Why Choose Our Services?</h2>
+                <p class="text-muted">We understand the unique challenges facing African businesses in the digital economy.</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-certificate fa-lg"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Certified Experts</h5>
+                    <p class="text-muted">Our team includes certified privacy professionals with deep knowledge of African data protection laws.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-globe-africa fa-lg"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Local Expertise</h5>
+                    <p class="text-muted">Specialized knowledge of privacy regulations across Nigeria, Kenya, Ghana, South Africa, and beyond.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-handshake fa-lg"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Ongoing Support</h5>
+                    <p class="text-muted">We don't just deliver services – we build lasting partnerships to support your privacy journey.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">How It Works</h2>
+                <p class="text-muted">Simple, straightforward process to get the privacy support you need.</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <span class="fw-bold">1</span>
+                    </div>
+                    <h6 class="fw-bold">Choose Service</h6>
+                    <p class="text-muted small">Select the service that best fits your needs</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <span class="fw-bold">2</span>
+                    </div>
+                    <h6 class="fw-bold">Book & Pay</h6>
+                    <p class="text-muted small">Schedule your session and make secure payment</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <span class="fw-bold">3</span>
+                    </div>
+                    <h6 class="fw-bold">Get Service</h6>
+                    <p class="text-muted small">Attend your session or receive your materials</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <span class="fw-bold">4</span>
+                    </div>
+                    <h6 class="fw-bold">Follow-up</h6>
+                    <p class="text-muted small">Receive follow-up support and guidance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h3 class="fw-bold mb-3">Ready to Strengthen Your Privacy Posture?</h3>
+                <p class="mb-0">Join hundreds of African businesses that trust us with their data protection needs.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('assessment') }}" class="btn btn-light btn-lg">
+                        <i class="fas fa-clipboard-check me-2"></i>Start Assessment
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Get Started
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

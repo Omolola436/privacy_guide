@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Privacy Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-lg border-0 my-5">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="mb-0">
+                        <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                    </h3>
+                    <p class="mb-0 opacity-75">Access your privacy dashboard</p>
+                </div>
+                <div class="card-body p-5">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-4">
+                            {{ form.username.label(class="form-label fw-bold") }}
+                            {{ form.username(class="form-control form-control-lg") }}
+                            {% if form.username.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.username.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            {{ form.password.label(class="form-label fw-bold") }}
+                            {{ form.password(class="form-control form-control-lg") }}
+                            {% if form.password.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.password.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {{ form.remember_me(class="form-check-input") }}
+                                {{ form.remember_me.label(class="form-check-label") }}
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <div class="alert alert-success mb-3">
+                        <i class="fas fa-gift me-2"></i>
+                        <strong>Free Access!</strong> Privacy assessment and compliance guidance included
+                    </div>
+                    <p class="mb-0 text-muted">
+                        Don't have an account? 
+                        <a href="{{ url_for('register') }}" class="text-decoration-none">
+                            <i class="fas fa-user-plus me-1"></i>Sign up here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-8 mx-auto">
+                <h4 class="fw-bold mb-4">Why Privacy Matters for Your Business</h4>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h6 class="fw-bold">Build Trust</h6>
+                            <p class="text-muted small">Protect customer data and build lasting trust with your audience.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h6 class="fw-bold">Stay Compliant</h6>
+                            <p class="text-muted small">Avoid penalties and meet regulatory requirements across Africa.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h6 class="fw-bold">Grow Confidently</h6>
+                            <p class="text-muted small">Scale your business with robust data protection practices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

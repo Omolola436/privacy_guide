@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block title %}Book {{ service.name }} - Privacy Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-4">
+                <div class="bg-{% if service.service_type == 'consultation' %}primary{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% else %}warning{% endif %} text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-{% if service.service_type == 'consultation' %}user-tie{% elif service.service_type == 'template' %}file-contract{% elif service.service_type == 'training' %}graduation-cap{% else %}shield-alt{% endif %} fa-2x"></i>
+                </div>
+                <h1 class="fw-bold">Book {{ service.name }}</h1>
+                <p class="lead text-muted">{{ service.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Service Details -->
+        <div class="col-lg-4 mb-4">
+            <div class="card border-0 shadow-sm sticky-top" style="top: 2rem;">
+                <div class="card-header bg-{% if service.service_type == 'consultation' %}primary{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% else %}warning{% endif %} text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Service Details
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6 class="fw-bold text-muted">Service Type</h6>
+                        <span class="badge bg-{% if service.service_type == 'consultation' %}primary{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% else %}warning{% endif %}">
+                            {{ service.service_type.title() }}
+                        </span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="fw-bold text-muted">Price</h6>
+                        <h4 class="fw-bold text-{% if service.service_type == 'consultation' %}primary{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% else %}warning{% endif %}">
+                            {{ service.currency }} {{ service.price }}
+                        </h4>
+                    </div>
+                    
+                    {% if service.duration_minutes %}
+                    <div class="mb-3">
+                        <h6 class="fw-bold text-muted">Duration</h6>
+                        <p class="mb-0">
+                            <i class="fas fa-clock me-2"></i>{{ service.duration_minutes }} minutes
+                        </p>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <h6 class="fw-bold text-muted">What's Included</h6>
+                        <ul class="list-unstyled small">
+                            {% if service.service_type == 'consultation' %}
+                                <li><i class="fas fa-check text-success me-2"></i>Expert consultation session</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Personalized recommendations</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Written summary report</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Follow-up email support</li>
+                            {% elif service.service_type == 'template' %}
+                                <li><i class="fas fa-check text-success me-2"></i>Ready-to-use templates</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Country-specific versions</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Editable formats</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Implementation guidance</li>
+                            {% elif service.service_type == 'training' %}
+                                <li><i class="fas fa-check text-success me-2"></i>Interactive training session</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Training materials</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Certificate of completion</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Q&A session</li>
+                            {% else %}
+                                <li><i class="fas fa-check text-success me-2"></i>Professional consultation</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Customized approach</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Expert guidance</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calendar-plus me-2"></i>Booking Information
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Customer Information -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="fas fa-user me-2"></i>Your Information
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" value="{{ current_user.first_name }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" value="{{ current_user.last_name }}" readonly>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" value="{{ current_user.email }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Company</label>
+                                    <input type="text" class="form-control" value="{{ current_user.company or 'Not provided' }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scheduling -->
+                        {% if service.service_type in ['consultation', 'training'] %}
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="fas fa-calendar me-2"></i>Preferred Schedule
+                            </h6>
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle me-2"></i>
+                                After payment, we'll contact you within 24 hours to confirm your preferred time slot.
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.preferred_date.label(class="form-label fw-bold") }}
+                                    {{ form.preferred_date(class="form-control", placeholder="e.g., March 15, 2024") }}
+                                    {% if form.preferred_date.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.preferred_date.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-text">Please provide your preferred date</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    {{ form.preferred_time.label(class="form-label fw-bold") }}
+                                    {{ form.preferred_time(class="form-control", placeholder="e.g., 2:00 PM WAT") }}
+                                    {% if form.preferred_time.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.preferred_time.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-text">Include your timezone</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="mb-4">
+                            <div class="alert alert-success" role="alert">
+                                <i class="fas fa-download me-2"></i>
+                                This is a digital service. You'll receive download links immediately after payment.
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Additional Notes -->
+                        <div class="mb-4">
+                            {{ form.notes.label(class="form-label fw-bold") }}
+                            {{ form.notes(class="form-control", rows="4", placeholder="Tell us about your specific needs, industry, current privacy challenges, or any questions you have...") }}
+                            {% if form.notes.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.notes.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">This helps us prepare a more targeted and valuable session for you.</div>
+                        </div>
+
+                        <!-- Payment Information -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="fas fa-credit-card me-2"></i>Payment
+                            </h6>
+                            <div class="alert alert-secondary" role="alert">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Total: {{ service.currency }} {{ service.price }}</strong>
+                                        <br>
+                                        <small class="text-muted">Secure payment via Stripe</small>
+                                    </div>
+                                    <div>
+                                        <i class="fab fa-cc-visa fa-2x text-muted me-1"></i>
+                                        <i class="fab fa-cc-mastercard fa-2x text-muted me-1"></i>
+                                        <i class="fas fa-lock text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                <label class="form-check-label" for="termsCheck">
+                                    I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and 
+                                    <a href="#" class="text-decoration-none">Privacy Policy</a> <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary btn-lg", value="Proceed to Payment") }}
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-shield-alt me-1"></i>
+                                Your payment information is secure and encrypted
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="row mt-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-question-circle me-2"></i>Frequently Asked Questions
+                    </h5>
+                    
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    How will the session be conducted?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    {% if service.service_type == 'consultation' or service.service_type == 'training' %}
+                                        Sessions are conducted via video call (Zoom, Google Meet, or Microsoft Teams). 
+                                        You'll receive a meeting link after booking confirmation.
+                                    {% else %}
+                                        This is a digital service. You'll receive download links via email immediately after payment.
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    What if I need to reschedule?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    You can reschedule your session up to 24 hours before the scheduled time. 
+                                    Contact us at info@privacyguard.com for rescheduling requests.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Do you provide refunds?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We offer a 100% satisfaction guarantee. If you're not satisfied with our service, 
+                                    contact us within 7 days for a full refund.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const submitBtn = form.querySelector('input[type="submit"]');
+    
+    form.addEventListener('submit', function(e) {
+        const termsCheck = document.getElementById('termsCheck');
+        
+        if (!termsCheck.checked) {
+            e.preventDefault();
+            alert('Please agree to the Terms of Service and Privacy Policy to continue.');
+            return false;
+        }
+        
+        // Show loading state
+        submitBtn.value = 'Processing...';
+        submitBtn.disabled = true;
+    });
+});
+</script>
+{% endblock %}

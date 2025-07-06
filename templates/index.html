@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Protect Your Data, Ensure Compliance</h1>
+                <p class="lead mb-4">
+                    Comprehensive privacy solutions tailored for African businesses. 
+                    Get your free privacy posture assessment and discover how to protect your data effectively.
+                </p>
+                <div class="d-grid d-md-flex gap-3">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('assessment') }}" class="btn btn-light btn-lg">
+                            <i class="fas fa-clipboard-check me-2"></i>Start Assessment
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Get Started Free
+                        </a>
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="p-4">
+                    <i class="fas fa-shield-alt" style="font-size: 10rem; opacity: 0.8;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">Why Choose PrivacyGuard?</h2>
+                <p class="text-muted">We understand the unique privacy challenges facing African businesses and provide tailored solutions for your compliance needs.</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-clipboard-check fa-lg"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Free Privacy Assessment</h5>
+                        <p class="text-muted">Get instant insights into your organization's privacy posture with our comprehensive assessment tool.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-globe-africa fa-lg"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">African Compliance Focus</h5>
+                        <p class="text-muted">Specialized knowledge of data protection laws across Nigeria, Kenya, Ghana, South Africa, and other African markets.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-users fa-lg"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Expert Support</h5>
+                        <p class="text-muted">Access to certified privacy professionals and comprehensive training programs for your team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Free Tier Services -->
+<section class="bg-success text-white py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">Free Privacy Tools</h2>
+                <p class="mb-4">Get started with our comprehensive free privacy assessment and compliance guidance.</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-white text-dark h-100 border-0 shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-clipboard-check fa-lg"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Privacy Posture Check</h5>
+                        <p class="text-muted mb-4">Complete questionnaire to assess your organization's privacy maturity and identify improvement areas.</p>
+                        <span class="badge bg-success fs-6">FREE</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-white text-dark h-100 border-0 shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-chart-line fa-lg"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Tailored Results</h5>
+                        <p class="text-muted mb-4">Receive personalized recommendations and actionable insights based on your assessment responses.</p>
+                        <span class="badge bg-success fs-6">FREE</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-white text-dark h-100 border-0 shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-globe-africa fa-lg"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Regulation Mapping</h5>
+                        <p class="text-muted mb-4">Get localized compliance guidance for Nigeria, Kenya, Ghana, Zimbabwe, Zambia, South Africa, and Botswana.</p>
+                        <span class="badge bg-success fs-6">FREE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ url_for('assessment') }}" class="btn btn-light btn-lg">
+                <i class="fas fa-play me-2"></i>Start Free Assessment
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Services Preview -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">Premium Services</h2>
+                <p class="text-muted">Take your data protection to the next level with our professional services.</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h6 class="fw-bold">Risk Assessment</h6>
+                    <p class="text-muted small">Comprehensive privacy risk evaluation</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h6 class="fw-bold">Policy Templates</h6>
+                    <p class="text-muted small">Ready-to-use privacy policies</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h6 class="fw-bold">Staff Training</h6>
+                    <p class="text-muted small">Privacy awareness programs</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h6 class="fw-bold">DPO Services</h6>
+                    <p class="text-muted small">Data Protection Officer support</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('services') }}" class="btn btn-primary">
+                <i class="fas fa-arrow-right me-2"></i>View All Services
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Countries Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">Serving African Markets</h2>
+                <p class="text-muted">We provide localized compliance guidance for major African economies.</p>
+            </div>
+        </div>
+        
+        <div class="row g-3 justify-content-center">
+            <div class="col-lg-2 col-md-3 col-4">
+                <div class="text-center p-3">
+                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h6 class="fw-bold small">Nigeria</h6>
+                    <small class="text-muted">NDPA</small>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-4">
+                <div class="text-center p-3">
+                    <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h6 class="fw-bold small">Kenya</h6>
+                    <small class="text-muted">DPA</small>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-4">
+                <div class="text-center p-3">
+                    <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h6 class="fw-bold small">Ghana</h6>
+                    <small class="text-muted">DPA</small>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-4">
+                <div class="text-center p-3">
+                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h6 class="fw-bold small">South Africa</h6>
+                    <small class="text-muted">POPIA</small>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-4">
+                <div class="text-center p-3">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h6 class="fw-bold small">More</h6>
+                    <small class="text-muted">Coming Soon</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h3 class="fw-bold mb-3">Stay Updated on Privacy Laws</h3>
+                <p class="mb-0">Get the latest insights on African data protection regulations and compliance requirements.</p>
+            </div>
+            <div class="col-lg-6">
+                <form method="POST" action="{{ url_for('newsletter_subscribe') }}" class="d-flex gap-2">
+                    {{ newsletter_form.hidden_tag() }}
+                    <div class="flex-grow-1">
+                        {{ newsletter_form.email(class="form-control form-control-lg", placeholder="Enter your email") }}
+                    </div>
+                    {{ newsletter_form.submit(class="btn btn-light btn-lg") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">Ready to Protect Your Data?</h2>
+                <p class="text-muted mb-4">
+                    Start with our free privacy assessment and discover how to strengthen your data protection practices.
+                </p>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-clipboard-check me-2"></i>Start Free Assessment
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Get Started Today
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

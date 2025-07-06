@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Privacy Platform - African Data Protection Solutions{% endblock %}</title>
+    
+    <!-- Bootstrap CSS (Replit themed) -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+                <i class="fas fa-shield-alt me-2"></i>PrivacyGuard
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('dashboard') }}">
+                                <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('assessment') }}">
+                                <i class="fas fa-clipboard-check me-1"></i>Assessment
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('services') }}">
+                            <i class="fas fa-cogs me-1"></i>Services
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user me-1"></i>{{ current_user.first_name or current_user.username }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">
+                                    <i class="fas fa-user me-2"></i>Profile
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">
+                                <i class="fas fa-sign-in-alt me-1"></i>Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light ms-2" href="{{ url_for('register') }}">
+                                <i class="fas fa-user-plus me-1"></i>Register
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                        <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'danger' or category == 'error' %}exclamation-triangle{% elif category == 'warning' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-shield-alt me-2"></i>PrivacyGuard</h5>
+                    <p class="text-muted">Empowering African businesses with comprehensive data protection solutions and privacy compliance expertise.</p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Services</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('assessment') }}" class="text-muted text-decoration-none">Privacy Assessment</a></li>
+                        <li><a href="{{ url_for('services') }}" class="text-muted text-decoration-none">Risk Assessment</a></li>
+                        <li><a href="{{ url_for('services') }}" class="text-muted text-decoration-none">Policy Templates</a></li>
+                        <li><a href="{{ url_for('services') }}" class="text-muted text-decoration-none">Staff Training</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Contact</h6>
+                    <p class="text-muted mb-1">
+                        <i class="fas fa-envelope me-2"></i>info@privacyguard.com
+                    </p>
+                    <p class="text-muted mb-3">
+                        <i class="fas fa-phone me-2"></i>+234 (0) 123 456 7890
+                    </p>
+                    <div>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">&copy; PrivacyGuard. All rights reserved.</p>
+                    {% if current_user.is_authenticated and current_user.country %}
+                        <div class="mt-3">
+                        <small class="text-muted d-block">
+                        {% if current_user.country == 'NG' %}
+                            <strong>Nigeria Office:</strong> Email: nigeria@privacyguard.com | Phone: +234-1-234-5678<br>
+                            Compliance support for NDPA regulations in Nigeria.
+                        {% elif current_user.country == 'KE' %}
+                            <strong>Kenya Office:</strong> Email: kenya@privacyguard.com | Phone: +254-20-123-4567<br>
+                            Supporting DPA 2019 compliance in Kenya.
+                        {% elif current_user.country == 'GH' %}
+                            <strong>Ghana Office:</strong> Email: ghana@privacyguard.com | Phone: +233-30-123-4567<br>
+                            Helping businesses comply with Ghana's DPA 2012.
+                        {% elif current_user.country == 'ZA' %}
+                            <strong>South Africa Office:</strong> Email: southafrica@privacyguard.com | Phone: +27-11-123-4567<br>
+                            POPIA compliance expertise for South African businesses.
+                        {% elif current_user.country == 'ZW' %}
+                            <strong>Zimbabwe Office:</strong> Email: zimbabwe@privacyguard.com | Phone: +263-4-123-456<br>
+                            CDPA compliance guidance for Zimbabwe.
+                        {% elif current_user.country == 'ZM' %}
+                            <strong>Zambia Office:</strong> Email: zambia@privacyguard.com | Phone: +260-21-123-456<br>
+                            Privacy best practices for Zambian businesses.
+                        {% elif current_user.country == 'BW' %}
+                            <strong>Botswana Office:</strong> Email: botswana@privacyguard.com | Phone: +267-31-123-456<br>
+                            Data protection guidance for Botswana enterprises.
+                        {% elif current_user.country == 'TZ' %}
+                            <strong>Tanzania Office:</strong> Email: tanzania@privacyguard.com | Phone: +255-22-123-4567<br>
+                            Supporting privacy compliance in Tanzania.
+                        {% elif current_user.country == 'UG' %}
+                            <strong>Uganda Office:</strong> Email: uganda@privacyguard.com | Phone: +256-41-123-456<br>
+                            Data protection services for Uganda.
+                        {% elif current_user.country == 'RW' %}
+                            <strong>Rwanda Office:</strong> Email: rwanda@privacyguard.com | Phone: +250-78-123-4567<br>
+                            Privacy expertise for Rwanda.
+                        {% elif current_user.country == 'ET' %}
+                            <strong>Ethiopia Office:</strong> Email: ethiopia@privacyguard.com | Phone: +251-11-123-4567<br>
+                            Data protection guidance for Ethiopia.
+                        {% elif current_user.country == 'EG' %}
+                            <strong>Egypt Office:</strong> Email: egypt@privacyguard.com | Phone: +20-2-1234-5678<br>
+                            Privacy services for Egyptian businesses.
+                        {% elif current_user.country == 'MA' %}
+                            <strong>Morocco Office:</strong> Email: morocco@privacyguard.com | Phone: +212-5-1234-5678<br>
+                            Supporting privacy compliance in Morocco.
+                        {% elif current_user.country == 'TN' %}
+                            <strong>Tunisia Office:</strong> Email: tunisia@privacyguard.com | Phone: +216-71-123-456<br>
+                            Data protection services for Tunisia.
+                        {% elif current_user.country == 'DZ' %}
+                            <strong>Algeria Office:</strong> Email: algeria@privacyguard.com | Phone: +213-21-123-456<br>
+                            Privacy expertise for Algeria.
+                        {% elif current_user.country == 'SN' %}
+                            <strong>Senegal Office:</strong> Email: senegal@privacyguard.com | Phone: +221-33-123-4567<br>
+                            Supporting privacy in Senegal.
+                        {% elif current_user.country == 'CI' %}
+                            <strong>Côte d'Ivoire Office:</strong> Email: cotedivoire@privacyguard.com | Phone: +225-27-123-456<br>
+                            Data protection for Côte d'Ivoire.
+                        {% elif current_user.country == 'CM' %}
+                            <strong>Cameroon Office:</strong> Email: cameroon@privacyguard.com | Phone: +237-2-123-4567<br>
+                            Privacy services for Cameroon.
+                        {% elif current_user.country == 'AO' %}
+                            <strong>Angola Office:</strong> Email: angola@privacyguard.com | Phone: +244-222-123-456<br>
+                            Supporting data protection in Angola.
+                        {% elif current_user.country == 'MZ' %}
+                            <strong>Mozambique Office:</strong> Email: mozambique@privacyguard.com | Phone: +258-21-123-456<br>
+                            Privacy guidance for Mozambique.
+                        {% elif current_user.country == 'MW' %}
+                            <strong>Malawi Office:</strong> Email: malawi@privacyguard.com | Phone: +265-1-123-456<br>
+                            Data protection services for Malawi.
+                        {% elif current_user.country == 'NA' %}
+                            <strong>Namibia Office:</strong> Email: namibia@privacyguard.com | Phone: +264-61-123-456<br>
+                            Privacy expertise for Namibia.
+                        {% elif current_user.country == 'MU' %}
+                            <strong>Mauritius Office:</strong> Email: mauritius@privacyguard.com | Phone: +230-212-1234<br>
+                            Supporting privacy in Mauritius.
+                        {% else %}
+                            <strong>Africa Regional:</strong> Email: africa@privacyguard.com | Phone: +27-11-123-4567<br>
+                            Comprehensive privacy solutions across Africa.
+                        {% endif %}
+                        </small>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-muted text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
