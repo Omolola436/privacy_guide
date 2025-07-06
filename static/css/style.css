@@ -361,6 +361,24 @@ section p, section span, section div, section li {
     color: #333333 !important;
 }
 
+.card-footer .alert-success {
+    background-color: #d1e7dd !important;
+    border-color: #badbcc !important;
+    color: #0f5132 !important;
+}
+
+.card-footer .alert-success * {
+    color: #0f5132 !important;
+}
+
+.card-footer .alert-success i {
+    color: #0f5132 !important;
+}
+
+.card-footer .alert-success strong {
+    color: #0f5132 !important;
+}
+
 /* Footer styling */
 footer {
     margin-top: auto;
