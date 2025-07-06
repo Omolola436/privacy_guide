@@ -353,6 +353,14 @@ section p, section span, section div, section li {
     color: #333333 !important;
 }
 
+.card-footer .alert * {
+    color: #333333 !important;
+}
+
+.card-footer .alert i {
+    color: #333333 !important;
+}
+
 /* Footer styling */
 footer {
     margin-top: auto;
