@@ -328,6 +328,31 @@ section p, section span, section div, section li {
     color: #ffffff !important;
 }
 
+/* Fix login form visibility */
+.card-body .form-label {
+    color: #333333 !important;
+}
+
+.card-body .form-check-label {
+    color: #333333 !important;
+}
+
+.card-body .form-control {
+    color: #333333 !important;
+}
+
+.card-footer p {
+    color: #333333 !important;
+}
+
+.card-footer .alert strong {
+    color: #333333 !important;
+}
+
+.card-footer .alert {
+    color: #333333 !important;
+}
+
 /* Footer styling */
 footer {
     margin-top: auto;
