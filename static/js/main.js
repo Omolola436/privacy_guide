@@ -317,13 +317,13 @@
 
         const radioInputs = assessmentForm.querySelectorAll('input[type="radio"]');
         const progressContainer = document.createElement('div');
-        progressContainer.className = 'assessment-progress sticky-top bg-white p-3 shadow-sm';
+        progressContainer.className = 'assessment-progress sticky-top bg-light p-3 shadow-sm border';
         progressContainer.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">Assessment Progress</small>
-                <small class="text-muted"><span class="progress-text">0% Complete</span></small>
+                <small class="text-dark fw-bold">Assessment Progress</small>
+                <small class="text-dark"><span class="progress-text fw-bold">0% Complete</span></small>
             </div>
-            <div class="progress mt-2" style="height: 8px;">
+            <div class="progress mt-2" style="height: 10px;">
                 <div class="progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
             </div>
         `;
