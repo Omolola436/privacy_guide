@@ -28,7 +28,7 @@
         <div class="col-lg-10">
             <form method="POST" id="assessmentForm">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                
+
                 {% for category, category_questions in questions.items() %}
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-primary text-white">
@@ -46,7 +46,7 @@
                                     <span class="badge bg-warning text-dark ms-2">High Priority</span>
                                 {% endif %}
                             </h6>
-                            
+
                             {% if question.question_type == 'yes_no' %}
                                 <div class="row">
                                     <div class="col-auto">
@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             {% elif question.question_type == 'multiple_choice' %}
                                 {% set options = question.options|from_json %}
                                 {% for option in options %}
@@ -178,16 +178,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('assessmentForm');
     const submitBtn = document.getElementById('submitBtn');
-    
+
     form.addEventListener('submit', function(e) {
         // Show loading state
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
         submitBtn.disabled = true;
-        
+
         // Check if all required questions are answered
         const requiredInputs = form.querySelectorAll('input[required]');
         const answeredQuestions = new Set();
-        
+
         requiredInputs.forEach(input => {
             if (input.checked) {
                 // Extract question ID from input name
@@ -195,45 +195,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 answeredQuestions.add(questionId);
             }
         });
-        
+
         // Get unique question IDs
         const allQuestionIds = new Set();
         requiredInputs.forEach(input => {
             const questionId = input.name.replace('question_', '');
             allQuestionIds.add(questionId);
         });
-        
+
         if (answeredQuestions.size < allQuestionIds.size) {
             e.preventDefault();
             submitBtn.innerHTML = '<i class="fas fa-calculator me-2"></i>Calculate My Privacy Score';
             submitBtn.disabled = false;
-            
+
             alert('Please answer all questions before submitting.');
             return false;
         }
     });
-    
+
     // Add progress tracking
     const radioInputs = form.querySelectorAll('input[type="radio"]');
     radioInputs.forEach(input => {
         input.addEventListener('change', updateProgress);
     });
-    
+
     function updateProgress() {
         const totalQuestions = new Set();
         const answeredQuestions = new Set();
-        
+
         radioInputs.forEach(input => {
             const questionId = input.name.replace('question_', '');
             totalQuestions.add(questionId);
-            
+
             if (input.checked) {
                 answeredQuestions.add(questionId);
             }
         });
-        
+
         const progress = (answeredQuestions.size / totalQuestions.size) * 100;
-        
+
         // Update submit button based on progress
         if (progress === 100) {
             submitBtn.classList.remove('btn-primary');
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = `<i class="fas fa-calculator me-2"></i>Calculate My Privacy Score (${Math.round(progress)}% complete)`;
         }
     }
-    
+
     // Initial progress check
     updateProgress();
 });
