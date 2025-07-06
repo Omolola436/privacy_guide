@@ -211,6 +211,45 @@ body {
     padding: 0.5em 0.75em;
 }
 
+/* Dashboard content visibility fixes */
+.card-body {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+.card-body h5, .card-body p {
+    color: #333333 !important;
+}
+
+.text-dark {
+    color: #333333 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+/* Ensure proper contrast for all text elements */
+.container h1, .container h2, .container h3, .container h4, .container h5, .container h6 {
+    color: #333333 !important;
+}
+
+.container p, .container span, .container div {
+    color: #333333 !important;
+}
+
+.container .text-muted {
+    color: #6c757d !important;
+}
+
 /* Footer styling */
 footer {
     margin-top: auto;
