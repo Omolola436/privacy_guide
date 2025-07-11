@@ -606,3 +606,15 @@ footer a:hover {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Add any custom styles here */
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    transition: all 0.3s ease;
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
