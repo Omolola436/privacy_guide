@@ -187,7 +187,7 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <h5 class="fw-bold">Privacy Posture Score: {{ assessment.score }}%</h5>
+                            <h5 class="fw-bold">Privacy Overview</h5>
                             <p class="text-muted mb-3">Risk Level: 
                                 <span class="badge bg-{% if assessment.risk_level == 'Low' %}success{% elif assessment.risk_level == 'Medium' %}warning{% else %}danger{% endif %} ms-1">
                                     {{ assessment.risk_level }}
