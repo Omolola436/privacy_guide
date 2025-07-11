@@ -354,6 +354,226 @@ def send_booking_confirmation_email(booking):
     except Exception as e:
         app.logger.error(f"Failed to send email: {e}")
 
+@app.route('/country-info')
+@login_required
+def country_info():
+    """Country-specific privacy law information"""
+    country_data = get_country_privacy_info(current_user.country)
+    return render_template('country_info.html', country_data=country_data)
+
+def get_country_privacy_info(country_code):
+    """Get privacy law information for a specific country"""
+    country_info = {
+        'NG': {
+            'name': 'Nigeria',
+            'law': 'Nigeria Data Protection Act (NDPA), 2023',
+            'regulator': 'Nigeria Data Protection Commission (NDPC)',
+            'requirements': [
+                'If you collect people\'s personal information (like names, emails, phone numbers), you must get their permission.',
+                'You must tell people what you plan to do with their data.',
+                'You need to keep their data safe and private.',
+                'If your business handles a lot of data, you must submit a data protection audit.',
+                'Businesses should have a data protection officer or advisor.'
+            ]
+        },
+        'KE': {
+            'name': 'Kenya',
+            'law': 'Data Protection Act, 2019',
+            'regulator': 'Office of the Data Protection Commissioner (ODPC)',
+            'requirements': [
+                'Businesses must register with the regulator if they collect or process personal data regularly.',
+                'You must ask for clear consent before collecting personal data.',
+                'You should tell people how and why you are collecting their data.',
+                'People can ask to see their data or ask you to delete it.',
+                'You must protect the data from loss or misuse.'
+            ]
+        },
+        'GH': {
+            'name': 'Ghana',
+            'law': 'Data Protection Act, 2012',
+            'regulator': 'Data Protection Commission',
+            'requirements': [
+                'Businesses must register with the Data Protection Commission.',
+                'You must tell people why you need their data and get their consent.',
+                'Keep personal data secure.',
+                'People have the right to see, correct, or delete their data.'
+            ]
+        },
+        'ZA': {
+            'name': 'South Africa',
+            'law': 'Protection of Personal Information Act (POPIA)',
+            'regulator': 'Information Regulator',
+            'requirements': [
+                'You must have a reason (legal basis) to collect personal data.',
+                'Consent is one way to collect data legally.',
+                'Businesses must appoint someone (Information Officer) to manage data protection.',
+                'People can ask to see or correct their data.',
+                'You must tell the regulator and affected people if data is stolen or lost.'
+            ]
+        },
+        'ZW': {
+            'name': 'Zimbabwe',
+            'law': 'Data Protection Act, 2021',
+            'regulator': 'POTRAZ',
+            'requirements': [
+                'You must tell people what data you are collecting and why.',
+                'You need to ask for their permission.',
+                'You must keep their data safe.',
+                'You should notify authorities if data is lost or stolen.'
+            ]
+        },
+        'ZM': {
+            'name': 'Zambia',
+            'law': 'Data Protection Act, 2021',
+            'regulator': 'ZICTA',
+            'requirements': [
+                'Get permission before collecting personal data.',
+                'Businesses may need to register with the regulator.',
+                'People can ask to see or change their data.',
+                'Protect personal data from misuse.'
+            ]
+        },
+        'BW': {
+            'name': 'Botswana',
+            'law': 'Data Protection Act, 2018',
+            'regulator': 'Data Protection Commissioner',
+            'requirements': [
+                'Register with the Commissioner if you process personal data.',
+                'Get consent from people before using their data.',
+                'Keep data confidential and secure.',
+                'People can request access to their data.'
+            ]
+        },
+        'TZ': {
+            'name': 'Tanzania',
+            'law': 'Personal Data Protection Act, 2022',
+            'regulator': 'The Personal Data Protection Commission (PDPC)',
+            'requirements': [
+                'Ask for permission before collecting personal data.',
+                'Tell people what you will use their data for.',
+                'Keep their data safe and use it only for the intended purpose.'
+            ]
+        },
+        'UG': {
+            'name': 'Uganda',
+            'law': 'Data Protection and Privacy Act, 2019',
+            'regulator': 'The Personal Data Protection Office (PDPO)',
+            'requirements': [
+                'Get clear consent before collecting data.',
+                'Let people access and correct their data.',
+                'Take steps to protect data from unauthorized access.'
+            ]
+        },
+        'RW': {
+            'name': 'Rwanda',
+            'law': 'Data Protection Law, 2021',
+            'regulator': 'National Cyber Security Authority (NCSA)',
+            'requirements': [
+                'Tell people why you are collecting their data.',
+                'Get their consent.',
+                'Keep data secure.',
+                'Let people see and manage their data.'
+            ]
+        },
+        'ET': {
+            'name': 'Ethiopia',
+            'law': 'Personal Data Protection Proclamation (Not yet enforced)',
+            'regulator': 'To be announced',
+            'requirements': [
+                'When it starts, businesses will need to get consent to collect data.',
+                'People will have rights to access and correct their data.'
+            ]
+        },
+        'EG': {
+            'name': 'Egypt',
+            'law': 'Data Protection Law, 2020',
+            'regulator': 'Egypt Data Protection Center',
+            'requirements': [
+                'Businesses need permission from people to use their data.',
+                'You must register your business and follow security rules.',
+                'People can ask you to delete or correct their data.'
+            ]
+        },
+        'MA': {
+            'name': 'Morocco',
+            'law': 'Law No. 09-08',
+            'regulator': 'CNDP',
+            'requirements': [
+                'You must register data activities.',
+                'Get permission before using personal data.',
+                'Secure the data and allow people to access or correct it.'
+            ]
+        },
+        'TN': {
+            'name': 'Tunisia',
+            'law': 'Organic Law No. 2004-63',
+            'regulator': 'Tunisian data protection authority (INPDP)',
+            'requirements': [
+                'Notify the authority before collecting data.',
+                'Ask for consent from data subjects.',
+                'Allow individuals to access or fix their information.'
+            ]
+        },
+        'DZ': {
+            'name': 'Algeria',
+            'law': 'Law No. 18-07',
+            'regulator': 'Not fully functional yet',
+            'requirements': [
+                'You must get consent to collect data.',
+                'People can ask to access or change their data.',
+                'Wait for full implementation of the law and regulator.'
+            ]
+        },
+        'SN': {
+            'name': 'Senegal',
+            'law': 'Law No. 2008-12',
+            'regulator': 'CDP',
+            'requirements': [
+                'Register your business if handling personal data.',
+                'Get people\'s permission before collecting their data.',
+                'People can see or correct their personal data.'
+            ]
+        },
+        'CI': {
+            'name': 'Côte d\'Ivoire',
+            'law': 'Law No. 2013-450',
+            'regulator': 'ARTCI',
+            'requirements': [
+                'Tell people what data you collect and why.',
+                'Ask for their consent.',
+                'Register with the authority if processing personal data.',
+                'Respect rights to access and deletion.'
+            ]
+        },
+        'CM': {
+            'name': 'Cameroon',
+            'law': 'No dedicated data protection law yet (privacy rules under ICT Law)',
+            'regulator': 'ANTIC (Cybersecurity)',
+            'requirements': [
+                'Ask for consent when collecting personal data.',
+                'Keep the data safe and do not share without permission.',
+                'A data protection law is being planned.'
+            ]
+        },
+        'AO': {
+            'name': 'Angola',
+            'law': 'Data Protection Law, 2011',
+            'regulator': 'To be fully operational',
+            'requirements': [
+                'Get permission before collecting personal data.',
+                'People have the right to access their data.',
+                'You must keep the data secure and confidential.'
+            ]
+        }
+    }
+    
+    return country_info.get(country_code, {
+        'name': 'Unknown',
+        'law': 'Information not available',
+        'regulator': 'Information not available',
+        'requirements': ['Country-specific information is being updated. Please contact our support team for guidance.']
+    })
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404
