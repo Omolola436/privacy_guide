@@ -81,7 +81,9 @@
                     <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
                         <i class="fas fa-clipboard-check fa-lg"></i>
                     </div>
-                    <h5 class="fw-bold text-dark">Start your privacy checkup now!</h5>
+                    <h5 class="fw-bold text-dark">
+                        {% if assessment %}Privacy Overview{% else %}Start your privacy checkup now!{% endif %}
+                    </h5>
                     {% if assessment %}
                         <p class="text-success mb-2">
                             <i class="fas fa-check-circle me-1"></i>Completed
