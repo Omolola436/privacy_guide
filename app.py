@@ -65,3 +65,5 @@ with app.app_context():
 @app.template_filter('from_json')
 def from_json_filter(s):
     return json.loads(s)
+
+import routes
