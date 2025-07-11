@@ -8,7 +8,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     first_name = StringField('First Name', validators=[DataRequired(), Length(max=50)])
     last_name = StringField('Last Name', validators=[DataRequired(), Length(max=50)])
-    company = StringField('Company/Organization', validators=[Optional(), Length(max=100)])
+    company = StringField('Company/Organization', validators=[DataRequired(), Length(max=100)])
     country = SelectField('Country', validators=[DataRequired()], choices=[])
     
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
