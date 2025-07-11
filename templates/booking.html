@@ -34,13 +34,6 @@
                         </span>
                     </div>
                     
-                    <div class="mb-3">
-                        <h6 class="fw-bold text-muted">Price</h6>
-                        <h4 class="fw-bold text-{% if service.service_type == 'consultation' %}primary{% elif service.service_type == 'template' %}success{% elif service.service_type == 'training' %}info{% else %}warning{% endif %}">
-                            {{ service.currency }} {{ service.price }}
-                        </h4>
-                    </div>
-                    
                     {% if service.duration_minutes %}
                     <div class="mb-3">
                         <h6 class="fw-bold text-muted">Duration</h6>
@@ -49,32 +42,6 @@
                         </p>
                     </div>
                     {% endif %}
-                    
-                    <div class="mb-3">
-                        <h6 class="fw-bold text-muted">What's Included</h6>
-                        <ul class="list-unstyled small">
-                            {% if service.service_type == 'consultation' %}
-                                <li><i class="fas fa-check text-success me-2"></i>Expert consultation session</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Personalized recommendations</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Written summary report</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Follow-up email support</li>
-                            {% elif service.service_type == 'template' %}
-                                <li><i class="fas fa-check text-success me-2"></i>Ready-to-use templates</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Country-specific versions</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Editable formats</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Implementation guidance</li>
-                            {% elif service.service_type == 'training' %}
-                                <li><i class="fas fa-check text-success me-2"></i>Interactive training session</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Training materials</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Certificate of completion</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Q&A session</li>
-                            {% else %}
-                                <li><i class="fas fa-check text-success me-2"></i>Professional consultation</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Customized approach</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Expert guidance</li>
-                            {% endif %}
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -156,13 +123,6 @@
                                 </div>
                             </div>
                         </div>
-                        {% else %}
-                        <div class="mb-4">
-                            <div class="alert alert-success" role="alert">
-                                <i class="fas fa-download me-2"></i>
-                                This is a digital service. You'll receive download links immediately after payment.
-                            </div>
-                        </div>
                         {% endif %}
 
                         <!-- Additional Notes -->
@@ -179,27 +139,6 @@
                             <div class="form-text">This helps us prepare a more targeted and valuable session for you.</div>
                         </div>
 
-                        <!-- Payment Information -->
-                        <div class="mb-4">
-                            <h6 class="fw-bold mb-3">
-                                <i class="fas fa-credit-card me-2"></i>Payment
-                            </h6>
-                            <div class="alert alert-secondary" role="alert">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong>Total: {{ service.currency }} {{ service.price }}</strong>
-                                        <br>
-                                        <small class="text-muted">Secure payment via Stripe</small>
-                                    </div>
-                                    <div>
-                                        <i class="fab fa-cc-visa fa-2x text-muted me-1"></i>
-                                        <i class="fab fa-cc-mastercard fa-2x text-muted me-1"></i>
-                                        <i class="fas fa-lock text-success"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Terms and Conditions -->
                         <div class="mb-4">
                             <div class="form-check">
@@ -213,14 +152,7 @@
 
                         <!-- Submit Button -->
                         <div class="d-grid">
-                            {{ form.submit(class="btn btn-primary btn-lg", value="Proceed to Payment") }}
-                        </div>
-                        
-                        <div class="text-center mt-3">
-                            <small class="text-muted">
-                                <i class="fas fa-shield-alt me-1"></i>
-                                Your payment information is secure and encrypted
-                            </small>
+                            {{ form.submit(class="btn btn-primary btn-lg", value="Submit") }}
                         </div>
                     </form>
                 </div>
