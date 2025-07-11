@@ -1,0 +1,145 @@
+Nigeria
+Law: Nigeria Data Protection Act (NDPA), 2023
+Regulator: Nigeria Data Protection Commission (NDPC)
+•	If you collect people’s personal information (like names, emails, phone numbers), you must get their permission.
+•	You must tell people what you plan to do with their data.
+•	You need to keep their data safe and private.
+•	If your business handles a lot of data, you must submit a data protection audit.
+•	Businesses should have a data protection officer or advisor.
+
+Kenya
+Law: Data Protection Act, 2019
+Regulator: Office of the Data Protection Commissioner (ODPC)
+•	Businesses must register with the regulator if they collect or process personal data regularly.
+•	You must ask for clear consent before collecting personal data.
+•	You should tell people how and why you are collecting their data.
+•	People can ask to see their data or ask you to delete it.
+•	You must protect the data from loss or misuse.
+
+Ghana
+Law: Data Protection Act, 2012
+Regulator: Data Protection Commission
+•	Businesses must register with the Data Protection Commission.
+•	You must tell people why you need their data and get their consent.
+•	Keep personal data secure.
+•	People have the right to see, correct, or delete their data.
+
+South Africa
+Law: Protection of Personal Information Act (POPIA)
+Regulator: Information Regulator
+•	You must have a reason (legal basis) to collect personal data.
+•	Consent is one way to collect data legally.
+•	Businesses must appoint someone (Information Officer) to manage data protection.
+•	People can ask to see or correct their data.
+•	You must tell the regulator and affected people if data is stolen or lost.
+
+Zimbabwe
+Law: Data Protection Act, 2021
+Regulator: POTRAZ
+•	You must tell people what data you are collecting and why.
+•	You need to ask for their permission.
+•	You must keep their data safe.
+•	You should notify authorities if data is lost or stolen.
+
+Zambia
+Law: Data Protection Act, 2021
+Regulator: ZICTA
+•	Get permission before collecting personal data.
+•	Businesses may need to register with the regulator.
+•	People can ask to see or change their data.
+•	Protect personal data from misuse.
+Botswana
+Law: Data Protection Act, 2018
+Regulator: Data Protection Commissioner
+•	Register with the Commissioner if you process personal data.
+•	Get consent from people before using their data.
+•	Keep data confidential and secure.
+•	People can request access to their data.
+Tanzania
+Law: Personal Data Protection Act, 2022
+Regulator: The Personal Data Protection Commission (PDPC)
+•	Ask for permission before collecting personal data.
+•	Tell people what you will use their data for.
+•	Keep their data safe and use it only for the intended purpose.
+Uganda
+Law: Data Protection and Privacy Act, 2019
+Regulator: The Personal Data Protection Office (PDPO)
+•	Get clear consent before collecting data.
+•	Let people access and correct their data.
+•	Take steps to protect data from unauthorized access.
+
+Rwanda
+Law: Data Protection Law, 2021
+Regulator: National Cyber Security Authority (NCSA)
+•	Tell people why you are collecting their data.
+•	Get their consent.
+•	Keep data secure.
+•	Let people see and manage their data.
+
+Ethiopia
+Law: Personal Data Protection Proclamation (Not yet enforced)
+Regulator: To be announced
+•	When it starts, businesses will need to get consent to collect data.
+•	People will have rights to access and correct their data.
+
+Egypt
+Law: Data Protection Law, 2020
+Regulator: Egypt Data Protection Center
+•	Businesses need permission from people to use their data.
+•	You must register your business and follow security rules.
+•	People can ask you to delete or correct their data.
+
+
+
+Morocco
+Law: Law No. 09-08
+Regulator: CNDP
+•	You must register data activities.
+•	Get permission before using personal data.
+•	Secure the data and allow people to access or correct it.
+
+
+
+
+Tunisia
+Law: Organic Law No. 2004-63
+Regulator:   Tunisian data protection authority (INPDP).  
+•	Notify the authority before collecting data.
+•	Ask for consent from data subjects.
+•	Allow individuals to access or fix their information.
+
+Algeria
+Law: Law No. 18-07
+Regulator: Not fully functional yet
+•	You must get consent to collect data.
+•	People can ask to access or change their data.
+•	Wait for full implementation of the law and regulator.
+
+Senegal
+Law: Law No. 2008-12
+Regulator: CDP
+•	Register your business if handling personal data.
+•	Get people’s permission before collecting their data.
+•	People can see or correct their personal data.
+
+Cote d’Ivoire
+Law: Law No. 2013-450
+Regulator: ARTCI
+•	Tell people what data you collect and why.
+•	Ask for their consent.
+•	Register with the authority if processing personal data.
+•	Respect rights to access and deletion.
+Cameroon
+Law: No dedicated data protection law yet (privacy rules under ICT Law)
+Regulator: ANTIC (Cybersecurity)
+•	Ask for consent when collecting personal data.
+•	Keep the data safe and do not share without permission.
+•	A data protection law is being planned.
+
+Angola
+
+Law: Data Protection Law, 2011
+Regulator: To be fully operational
+•	Get permission before collecting personal data.
+•	People have the right to access their data.
+•	You must keep the data secure and confidential.
